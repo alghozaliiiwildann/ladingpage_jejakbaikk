@@ -2,6 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { HomeScreen, AddScreen, ProgressScreen, Shot } from "./Screens";
 
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.jejakbaik.app";
+// Ganti nomor WhatsApp di bawah dengan nomor resmi Jejak Baik (format: 62xxxxxxxxxx)
+const WA_NUMBER = "6281234567890";
+const IG_URL = "https://instagram.com/jejakbaik.id";
+const WA_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Halo Jejak Baik, saya ingin bertanya tentang aplikasinya.")}`;
+const TIKTOK_URL = "https://tiktok.com/@jejakbaik.id";
+const EMAIL = "hello@jejakbaik.id";
 
 const slides = [
   { title: "Beranda", src: "image/home.png", el: <HomeScreen /> },
@@ -86,15 +92,44 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   return <span ref={ref}>{n.toLocaleString("id-ID")}{suffix}</span>;
 }
 
+const DownloadIcon = ({ size = 24 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5" />
+    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+  </svg>
+);
+
+const IgIcon = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+const WaIcon = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.86.5 3.6 1.4 5.1L2 22l5.2-1.55a9.86 9.86 0 0 0 4.84 1.27h.01c5.43 0 9.84-4.4 9.84-9.84C21.89 6.4 17.47 2 12.04 2Zm5.76 13.9c-.24.68-1.4 1.3-1.93 1.35-.53.06-1.02.24-3.44-.72-2.9-1.15-4.72-4.13-4.86-4.32-.14-.2-1.15-1.55-1.15-2.95s.73-2.09 1-2.38c.26-.29.57-.36.76-.36h.55c.18 0 .42-.07.65.5.24.58.81 2 .88 2.14.07.15.12.32.02.51-.1.2-.2.32-.34.5-.14.17-.3.38-.43.51-.14.14-.29.3-.12.59.17.29.74 1.22 1.58 1.98 1.09.97 1.83 1.27 2.1 1.42.29.14.45.12.62-.07.17-.2.72-.84.91-1.13.19-.29.38-.24.64-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38Z" />
+  </svg>
+);
+
+const TtIcon = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M16.6 5.82A5.9 5.9 0 0 0 15.55 2h-3.1v13.2a2.5 2.5 0 1 1-1.78-2.4V9.64a5.65 5.65 0 1 0 4.88 5.6V8.87a8.9 8.9 0 0 0 4.2 1.05V6.8a4.9 4.9 0 0 1-3.15-.98Z" />
+  </svg>
+);
+
+const MailIcon = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="2.5" y="4.5" width="19" height="15" rx="3" />
+    <path d="m3.5 6.5 8.5 6 8.5-6" />
+  </svg>
+);
+
 const PlayButton = ({ light = false }: { light?: boolean }) => (
   <a className={"play" + (light ? " light" : "")} href={PLAY_URL} target="_blank" rel="noopener noreferrer">
-    <svg width="26" height="28" viewBox="0 0 26 28">
-      <path fill="#34A853" d="M1 1.2 14.6 14 1 26.8c-.4-.3-.6-.8-.6-1.4V2.6c0-.6.2-1.1.6-1.4Z" />
-      <path fill="#FBBC04" d="m19.1 18.5-4.5-4.5 4.5-4.5 5.2 3c1.2.7 1.2 2.3 0 3z" />
-      <path fill="#EA4335" d="M14.6 14 19.1 18.5 3.3 27.4c-.8.5-1.6.4-2.3-.6z" />
-      <path fill="#4285F4" d="M1 1.2c.7-1 1.5-1.1 2.3-.6l15.8 8.9L14.6 14z" />
-    </svg>
-    <span><small>DAPATKAN DI</small><b>Google Play</b></span>
+    <DownloadIcon size={28} />
+    <span><small>GRATIS DI GOOGLE PLAY</small><b>Download</b></span>
   </a>
 );
 
@@ -123,19 +158,10 @@ const testi = [
   { n: "Yoga S.", r: "Guru", q: "Saya rekomendasikan ke murid-murid untuk membangun kebiasaan membaca." },
 ];
 
-const faqs = [
-  { q: "Apakah Jejak Baik gratis?", a: "Ya! Jejak Baik bisa diunduh dan digunakan secara gratis tanpa iklan yang mengganggu." },
-  { q: "Berapa banyak kebiasaan yang bisa saya tambahkan?", a: "Tidak ada batasan. Kamu bisa menambahkan kebiasaan sebanyak yang kamu mau." },
-  { q: "Apakah aplikasi ini bisa digunakan offline?", a: "Bisa. Semua fitur utama berjalan tanpa koneksi internet." },
-  { q: "Apakah ada pengingat atau notifikasi?", a: "Ada. Kamu bisa mengatur pengingat untuk setiap kebiasaan sesuai jadwalmu." },
-  { q: "Apakah data saya aman?", a: "Data kebiasaanmu tersimpan di perangkat dan tidak dibagikan ke pihak ketiga." },
-];
-
 export default function App() {
   useReveal();
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
-  const [open, setOpen] = useState<number | null>(0);
   const [prog, setProg] = useState(0);
 
   useEffect(() => {
@@ -148,7 +174,7 @@ export default function App() {
     return () => window.removeEventListener("scroll", on);
   }, []);
 
-  const nav = [["Fitur", "#fitur"], ["Tampilan", "#tampilan"], ["Cara Kerja", "#cara"], ["Testimoni", "#testi"], ["FAQ", "#faq"]];
+  const nav = [["Fitur", "#fitur"], ["Tampilan", "#tampilan"], ["Cara Kerja", "#cara"], ["Testimoni", "#testi"]];
 
   return (
     <>
@@ -156,13 +182,31 @@ export default function App() {
       <header className={"nav" + (scrolled ? " scrolled" : "")}>
         <div className="container nav-in">
           <a href="#" className="logo" aria-label="Jejak Baik">
-            <img className="logo-mark" src="/image/logo.jpeg" alt="" />
+            <svg className="logo-mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#10b981" />
+                  <stop offset="100%" stopColor="#059669" />
+                </linearGradient>
+                <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#34d399" />
+                  <stop offset="100%" stopColor="#10b981" />
+                </linearGradient>
+              </defs>
+              <path d="M100 10 C144.18 10 182 47.82 182 92 C182 136.18 144.18 174 100 174 C55.82 174 18 136.18 18 92 C18 47.82 55.82 10 100 10 Z" fill="url(#g1)" stroke="#047857" strokeWidth="4" />
+              <path d="M100 174 C55.82 174 18 136.18 18 92 C18 47.82 55.82 10 100 10" fill="none" stroke="url(#g2)" strokeWidth="12" strokeLinecap="round" />
+              <ellipse cx="108" cy="106" rx="14" ry="22" fill="#111827" />
+              <path d="M82 120 L94 110 L106 126 L122 102" stroke="#ffffff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              <path d="M90 118 L106 110 L122 128" stroke="#ffffff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              <path d="M76 134 Q88 146 106 134 T136 134" fill="none" stroke="#10b981" strokeWidth="10" strokeLinecap="round" />
+              <path d="M122 150 Q134 150 142 140 T150 122" fill="none" stroke="#34d399" strokeWidth="10" strokeLinecap="round" />
+            </svg>
             <span className="logo-text">Jejak<b>Baik</b></span>
           </a>
           <nav className={menu ? "open" : ""}>
             {nav.map(([t, h]) => <a key={h} href={h} onClick={() => setMenu(false)}>{t}</a>)}
           </nav>
-          <a href="#unduh" className="nav-cta">Mulai Sekarang</a>
+          <a href="#unduh" className="nav-cta"><DownloadIcon size={16} /> Download</a>
           <button className="burger" onClick={() => setMenu(!menu)} aria-label="menu"><i /><i /><i /></button>
         </div>
       </header>
@@ -175,7 +219,7 @@ export default function App() {
             <h1 className="rv d1">Bangun <span className="grad">kebiasaan baik</span>, satu langkah setiap hari.</h1>
             <p className="rv d2">Jejak Baik membantumu mencatat, memantau, dan merayakan setiap kebiasaan positif — dari minum air putih hingga belajar coding.</p>
             <div className="hero-btn rv d3">
-              <a href="#unduh" className="btn-primary">Coba Gratis →</a>
+              <a href="#unduh" className="btn-primary">Download Gratis →</a>
               <a href="#tampilan" className="btn-ghost">▶ Lihat Tampilan</a>
             </div>
             <div className="hero-proof rv d4">
@@ -300,25 +344,6 @@ export default function App() {
         </div>
       </section>
 
-      <section id="faq" className="sec soft">
-        <div className="container faq-in">
-          <div className="sec-head rv">
-            <span className="tag">FAQ</span>
-            <h2>Pertanyaan yang <span className="grad">sering ditanyakan</span></h2>
-          </div>
-          <div className="faqs">
-            {faqs.map((f, i) => (
-              <div className={"faq rv" + (open === i ? " open" : "")} key={i}>
-                <button onClick={() => setOpen(open === i ? null : i)}>
-                  {f.q}<span>+</span>
-                </button>
-                <div className="faq-a"><p>{f.a}</p></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section id="unduh" className="cta">
         <div className="container">
           <div className="cta-box rv">
@@ -368,15 +393,17 @@ export default function App() {
           </div>
           <div className="foot-contact">
             <h6>Kontak</h6>
-            <p>hello@jejakbaik.id</p>
-            <p>Indonesia</p>
+            <a href={WA_URL} target="_blank" rel="noopener noreferrer"><span className="ci"><WaIcon /></span><span>WhatsApp<br /><small>+62 812-3456-7890</small></span></a>
+            <a href={IG_URL} target="_blank" rel="noopener noreferrer"><span className="ci"><IgIcon /></span><span>Instagram<br /><small>@jejakbaik.id</small></span></a>
+            <a href={`mailto:${EMAIL}`}><span className="ci"><MailIcon /></span><span>Email<br /><small>{EMAIL}</small></span></a>
+            <p className="foot-loc">Berdiri di Indonesia 🇮🇩</p>
           </div>
           <div className="foot-bottom">
             <p>© 2026 Jejak Baik. Hak cipta dilindungi undang-undang.</p>
             <div className="foot-social">
-              <a href="#" aria-label="Instagram">IG</a>
-              <a href="#" aria-label="Twitter">X</a>
-              <a href="#" aria-label="TikTok">TT</a>
+              <a href={IG_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><IgIcon size={20} /></a>
+              <a href={WA_URL} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><WaIcon size={20} /></a>
+              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" aria-label="TikTok"><TtIcon size={20} /></a>
             </div>
           </div>
         </div>
