@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { HomeScreen, AddScreen, ProgressScreen, Shot } from "./Screens";
+import logoImage from "../image/logo.jpeg";
 
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.jejakbaik.app";
 // Ganti nomor WhatsApp di bawah dengan nomor resmi Jejak Baik (format: 62xxxxxxxxxx)
 const WA_NUMBER = "6281234567890";
-const IG_URL = "https://instagram.com/jejakbaik.id";
+const IG_URL = "https://www.instagram.com/jejakbaik.app/";
 const WA_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Halo Jejak Baik, saya ingin bertanya tentang aplikasinya.")}`;
 const TIKTOK_URL = "https://tiktok.com/@jejakbaik.id";
-const EMAIL = "hello@jejakbaik.id";
+const EMAIL = "jejakbaik0@gmail.com";
 
 const slides = [
   { title: "Beranda", src: "image/home.png", el: <HomeScreen /> },
@@ -182,26 +183,9 @@ export default function App() {
       <header className={"nav" + (scrolled ? " scrolled" : "")}>
         <div className="container nav-in">
           <a href="#" className="logo" aria-label="Jejak Baik">
-            <svg className="logo-mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#10b981" />
-                  <stop offset="100%" stopColor="#059669" />
-                </linearGradient>
-                <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#34d399" />
-                  <stop offset="100%" stopColor="#10b981" />
-                </linearGradient>
-              </defs>
-              <path d="M100 10 C144.18 10 182 47.82 182 92 C182 136.18 144.18 174 100 174 C55.82 174 18 136.18 18 92 C18 47.82 55.82 10 100 10 Z" fill="url(#g1)" stroke="#047857" strokeWidth="4" />
-              <path d="M100 174 C55.82 174 18 136.18 18 92 C18 47.82 55.82 10 100 10" fill="none" stroke="url(#g2)" strokeWidth="12" strokeLinecap="round" />
-              <ellipse cx="108" cy="106" rx="14" ry="22" fill="#111827" />
-              <path d="M82 120 L94 110 L106 126 L122 102" stroke="#ffffff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-              <path d="M90 118 L106 110 L122 128" stroke="#ffffff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-              <path d="M76 134 Q88 146 106 134 T136 134" fill="none" stroke="#10b981" strokeWidth="10" strokeLinecap="round" />
-              <path d="M122 150 Q134 150 142 140 T150 122" fill="none" stroke="#34d399" strokeWidth="10" strokeLinecap="round" />
-            </svg>
-            <span className="logo-text">Jejak<b>Baik</b></span>
+            <span className="nav-logo-icon">
+              <img src={logoImage} alt="Jejak Baik" />
+            </span>
           </a>
           <nav className={menu ? "open" : ""}>
             {nav.map(([t, h]) => <a key={h} href={h} onClick={() => setMenu(false)}>{t}</a>)}
@@ -394,7 +378,7 @@ export default function App() {
           <div className="foot-contact">
             <h6>Kontak</h6>
             <a href={WA_URL} target="_blank" rel="noopener noreferrer"><span className="ci"><WaIcon /></span><span>WhatsApp<br /><small>+62 812-3456-7890</small></span></a>
-            <a href={IG_URL} target="_blank" rel="noopener noreferrer"><span className="ci"><IgIcon /></span><span>Instagram<br /><small>@jejakbaik.id</small></span></a>
+            <a href={IG_URL} target="_blank" rel="noopener noreferrer"><span className="ci"><IgIcon /></span><span>Instagram<br /><small>@jejakbaik.app</small></span></a>
             <a href={`mailto:${EMAIL}`}><span className="ci"><MailIcon /></span><span>Email<br /><small>{EMAIL}</small></span></a>
             <p className="foot-loc">Berdiri di Indonesia 🇮🇩</p>
           </div>
