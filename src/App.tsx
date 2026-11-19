@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { HomeScreen, AddScreen, ProgressScreen, Shot } from "./Screens";
 import logoImage from "../image/logo.jpeg";
+import homeImage from "../image/home.jpeg";
+import kebiasaanImage from "../image/kebiasan.jpeg";
+import profileImage from "../image/profile.jpeg";
+import progresImage from "../image/progres.jpeg";
 
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.jejakbaik.app";
 // Ganti nomor WhatsApp di bawah dengan nomor resmi Jejak Baik (format: 62xxxxxxxxxx)
@@ -11,9 +15,10 @@ const TIKTOK_URL = "https://tiktok.com/@jejakbaik.id";
 const EMAIL = "jejakbaik0@gmail.com";
 
 const slides = [
-  { title: "Beranda", src: "image/home.png", el: <HomeScreen /> },
-  { title: "Tambah Kebiasaan", src: "image/tambah.png", el: <AddScreen /> },
-  { title: "Progres", src: "image/progress.png", el: <ProgressScreen /> },
+  { title: "Beranda", src: homeImage, bar: "linear-gradient(90deg,#16a54b,#37c16b)", fg: "#fff", el: <HomeScreen /> },
+  { title: "Tambah Kebiasaan", src: kebiasaanImage, bar: "#f9fafc", fg: "#0b1b12", el: <AddScreen /> },
+  { title: "Profil", src: profileImage, bar: "linear-gradient(90deg,#18a94e,#34bf66)", fg: "#fff", el: <HomeScreen /> },
+  { title: "Progres", src: progresImage, bar: "#f9fafc", fg: "#0b1b12", el: <ProgressScreen /> },
 ];
 
 function useReveal() {
@@ -35,17 +40,21 @@ function PhoneSlider({ big = false }: { big?: boolean }) {
     const t = setInterval(() => setI((x) => (x + 1) % slides.length), 4000);
     return () => clearInterval(t);
   }, [pause]);
+  const cur = slides[i];
 
   return (
     <div className={"phone-wrap" + (big ? " big" : "")} onMouseEnter={() => setPause(true)} onMouseLeave={() => setPause(false)}>
       <div className="phone">
-        <div className="status">
-          <span className="time">9:41</span>
-          <div className="sig"><span /><span /><span /></div>
-          <div className="batt"><div className="fill" /><span className="dot" /></div>
-        </div>
         <div className="screen">
-          <div className="island" />
+          <div className="topbar" style={{ background: cur.bar, color: cur.fg }}>
+            <span className="bar-time">9:41</span>
+            <div className="bar-icons" aria-hidden="true">
+              <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1" /><rect x="4.5" y="5" width="3" height="6" rx="1" /><rect x="9" y="2.5" width="3" height="8.5" rx="1" /><rect x="13.5" y="0" width="3" height="11" rx="1" /></svg>
+              <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 2.2c2.2 0 4.2.9 5.7 2.3l1.1-1.1A9.6 9.6 0 0 0 7.5.6 9.6 9.6 0 0 0 .7 3.4l1.1 1.1a8 8 0 0 1 5.7-2.3Zm0 3.2c1.3 0 2.5.5 3.4 1.3l1.1-1.1a6.4 6.4 0 0 0-9 0l1.1 1.1c.9-.8 2.1-1.3 3.4-1.3Zm0 3.2c.5 0 .9.2 1.2.5L7.5 10.3 6.3 9.1c.3-.3.7-.5 1.2-.5Z" /></svg>
+              <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4" /><rect x="2" y="2" width="18" height="8" rx="2" fill="currentColor" /><rect x="23" y="4" width="1.5" height="4" rx=".7" fill="currentColor" opacity=".4" /></svg>
+            </div>
+          </div>
+          <div className="island" aria-hidden="true"><span className="lens" /></div>
           <div className="track" style={{ transform: `translateX(-${i * 100}%)` }}>
             {slides.map((s) => (
               <div className="slide" key={s.title}>
