@@ -6,7 +6,7 @@ import kebiasaanImage from "../image/kebiasan.jpeg";
 import profileImage from "../image/profile.jpeg";
 import progresImage from "../image/progres.jpeg";
 
-const PLAY_URL = "https://play.google.com/store/apps/details?id=com.jejakbaik.app";
+const APK_URL = "https://expo.dev/artifacts/eas/eiz8L1bOyYnjgbiQiSBOx5THNq7Fb5HUdVD_IpGOl2E.apk";
 // Ganti nomor WhatsApp di bawah dengan nomor resmi Jejak Baik (format: 62xxxxxxxxxx)
 const WA_NUMBER = "6281234567890";
 const IG_URL = "https://www.instagram.com/jejakbaik.app/";
@@ -137,35 +137,41 @@ const MailIcon = ({ size = 18 }: { size?: number }) => (
 );
 
 const PlayButton = ({ light = false }: { light?: boolean }) => (
-  <a className={"play" + (light ? " light" : "")} href={PLAY_URL} target="_blank" rel="noopener noreferrer">
-    <DownloadIcon size={28} />
-    <span><small>GRATIS DI GOOGLE PLAY</small><b>Download</b></span>
+  <a className={"play" + (light ? " light" : "")} href={APK_URL} download target="_blank" rel="noopener noreferrer">
+    <span className="play-ic"><DownloadIcon size={26} /></span>
+    <span><small>VERSI ANDROID · APK</small><b>Unduh Gratis</b></span>
   </a>
 );
 
+const featureIcons: Record<string, React.ReactNode> = {
+  check: <><path d="M9 6.5h11" /><path d="M9 12h11" /><path d="M9 17.5h7" /><path d="m3.5 6.2 1.6 1.6L8 4.9" /><path d="m3.5 11.7 1.6 1.6L8 10.4" /></>,
+  chart: <><path d="M3.5 20.5h17" /><path d="M6.5 20.5v-7" /><path d="M12 20.5V4.5" /><path d="M17.5 20.5v-10" /></>,
+  palette: <><rect x="3.5" y="3.5" width="7" height="7" rx="1.8" /><circle cx="17" cy="7" r="3.5" /><rect x="3.5" y="14" width="7" height="6.5" rx="1.8" /><path d="M14 15.5h6.5" /><path d="M17.25 12.25v6.5" /></>,
+  bell: <><path d="M18 9a6 6 0 1 0-12 0c0 6-2.5 7.5-2.5 7.5h17S18 15 18 9Z" /><path d="M10.2 20.5a2 2 0 0 0 3.6 0" /></>,
+  flame: <><path d="M12 2.5c3.5 4 6 6.5 6 10.5a6 6 0 0 1-12 0c0-2 .8-3.6 2-5 .2 1.6 1 2.6 2 2.9 0-3 .8-5.7 2-8.4Z" /></>,
+  lock: <><rect x="4.5" y="10" width="15" height="10.5" rx="2.5" /><path d="M8 10V7.5a4 4 0 0 1 8 0V10" /><path d="M12 14.5v2" /></>,
+};
+
+const FeatureIcon = ({ name }: { name: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    {featureIcons[name]}
+  </svg>
+);
+
 const features = [
-  { ic: "✅", t: "Checklist Harian", d: "Centang kebiasaan yang sudah selesai dengan satu ketukan. Simpel & memuaskan." },
-  { ic: "📊", t: "Progres Real-time", d: "Lihat persentase progres hari ini lewat cincin progres yang interaktif." },
-  { ic: "🎨", t: "Ikon & Kategori", d: "Personalisasi setiap kebiasaan dengan ikon dan kategori pilihanmu." },
-  { ic: "🔔", t: "Pengingat Pintar", d: "Notifikasi tepat waktu supaya kamu tidak lupa menjalankan kebiasaan baik." },
-  { ic: "🔥", t: "Streak Beruntun", d: "Jaga api semangatmu dengan menghitung hari beruntun tanpa bolong." },
-  { ic: "🔒", t: "Privasi Terjaga", d: "Datamu tersimpan aman di perangkat. Tanpa iklan yang mengganggu." },
+  { ic: "check", t: "Checklist Harian", d: "Centang kebiasaan yang sudah selesai dengan satu ketukan. Simpel & memuaskan." },
+  { ic: "chart", t: "Progres Real-time", d: "Lihat persentase progres hari ini lewat cincin progres yang interaktif." },
+  { ic: "palette", t: "Ikon & Kategori", d: "Personalisasi setiap kebiasaan dengan ikon dan kategori pilihanmu." },
+  { ic: "bell", t: "Pengingat Pintar", d: "Notifikasi tepat waktu supaya kamu tidak lupa menjalankan kebiasaan baik." },
+  { ic: "flame", t: "Streak Beruntun", d: "Jaga api semangatmu dengan menghitung hari beruntun tanpa bolong." },
+  { ic: "lock", t: "Privasi Terjaga", d: "Datamu tersimpan aman di perangkat. Tanpa iklan yang mengganggu." },
 ];
 
 const steps = [
-  { n: "01", t: "Unduh Aplikasi", d: "Install Jejak Baik gratis dari Google Play." },
+  { n: "01", t: "Unduh APK", d: "Tekan tombol download dan pasang aplikasinya di Android." },
   { n: "02", t: "Tambah Kebiasaan", d: "Tulis nama, target, kategori, dan pilih ikon." },
   { n: "03", t: "Centang Setiap Hari", d: "Tandai kebiasaan yang sudah kamu lakukan." },
   { n: "04", t: "Pantau Progres", d: "Lihat perkembanganmu dan rayakan pencapaian." },
-];
-
-const testi = [
-  { n: "Rina A.", r: "Mahasiswi", q: "Akhirnya bisa konsisten minum 8 gelas air sehari. Tampilannya bersih banget!" },
-  { n: "Dimas P.", r: "Programmer", q: "Belajar coding 1 jam per hari jadi rutinitas. Streak-nya bikin nagih 🔥" },
-  { n: "Sari W.", r: "Ibu Rumah Tangga", q: "Simpel, tidak ribet, dan bahasanya Indonesia. Cocok buat semua umur." },
-  { n: "Bagus K.", r: "Atlet Amatir", q: "Progres olahraga jadi terukur. Saya suka cincin progresnya!" },
-  { n: "Nadia F.", r: "Content Creator", q: "Meditasi 10 menit tiap pagi sekarang sudah jadi kebiasaan. Terima kasih Jejak Baik!" },
-  { n: "Yoga S.", r: "Guru", q: "Saya rekomendasikan ke murid-murid untuk membangun kebiasaan membaca." },
 ];
 
 export default function App() {
@@ -184,7 +190,7 @@ export default function App() {
     return () => window.removeEventListener("scroll", on);
   }, []);
 
-  const nav = [["Fitur", "#fitur"], ["Tampilan", "#tampilan"], ["Cara Kerja", "#cara"], ["Testimoni", "#testi"]];
+  const nav = [["Fitur", "#fitur"], ["Tampilan", "#tampilan"], ["Cara Kerja", "#cara"]];
 
   return (
     <>
@@ -195,12 +201,14 @@ export default function App() {
             <span className="nav-logo-icon">
               <img src={logoImage} alt="Jejak Baik" />
             </span>
+            <span className="logo-text">Jejak<b>Baik</b></span>
           </a>
           <nav className={menu ? "open" : ""}>
             {nav.map(([t, h]) => <a key={h} href={h} onClick={() => setMenu(false)}>{t}</a>)}
+            <a href={APK_URL} download target="_blank" rel="noopener noreferrer" className="nav-mob">Download APK</a>
           </nav>
-          <a href="#unduh" className="nav-cta"><DownloadIcon size={16} /> Download</a>
-          <button className="burger" onClick={() => setMenu(!menu)} aria-label="menu"><i /><i /><i /></button>
+          <a href={APK_URL} download target="_blank" rel="noopener noreferrer" className="nav-cta"><DownloadIcon size={16} /> Download APK</a>
+          <button className="burger" onClick={() => setMenu(!menu)} aria-label="menu" aria-expanded={menu}><i /><i /><i /></button>
         </div>
       </header>
 
@@ -212,12 +220,12 @@ export default function App() {
             <h1 className="rv d1">Bangun <span className="grad">kebiasaan baik</span>, satu langkah setiap hari.</h1>
             <p className="rv d2">Jejak Baik membantumu mencatat, memantau, dan merayakan setiap kebiasaan positif — dari minum air putih hingga belajar coding.</p>
             <div className="hero-btn rv d3">
-              <a href="#unduh" className="btn-primary">Download Gratis →</a>
+              <a href={APK_URL} download target="_blank" rel="noopener noreferrer" className="btn-primary"><DownloadIcon size={19} /> Download APK</a>
               <a href="#tampilan" className="btn-ghost">▶ Lihat Tampilan</a>
             </div>
             <div className="hero-proof rv d4">
               <div className="avatars">{["🧑", "👩", "👨", "👧"].map((a, i) => <span key={i}>{a}</span>)}</div>
-              <div><b>⭐ 4.9</b> dari 10.000+ pengguna bahagia</div>
+              <div><b>Gratis</b> · tanpa iklan · tanpa langganan</div>
             </div>
           </div>
           <div className="hero-ph rv d2">
@@ -231,7 +239,7 @@ export default function App() {
 
       <section className="stats">
         <div className="container stats-in">
-          {[[10000, "+", "Pengguna aktif"], [250000, "+", "Kebiasaan tercatat"], [86, "%", "Rata-rata konsistensi"], [49, "", "Rating (dari 50)"]].map(([n, s, l], i) => (
+          {[[10000, "+", "Pengguna aktif"], [250000, "+", "Kebiasaan tercatat"], [86, "%", "Rata-rata konsistensi"], [100, "%", "Gratis & tanpa iklan"]].map(([n, s, l], i) => (
             <div key={i} className="stat rv" style={{ transitionDelay: i * 0.1 + "s" }}>
               <b><Counter to={n as number} suffix={s as string} /></b>
               <span>{l}</span>
@@ -250,12 +258,14 @@ export default function App() {
           <div className="feat-grid">
             {features.map((f, i) => (
               <div className="feat rv" key={f.t} style={{ transitionDelay: i * 0.08 + "s" }}>
-                <div className="feat-ic">{f.ic}</div>
+                <span className="feat-index">{String(i + 1).padStart(2, "0")}</span>
+                <div className="feat-ic"><FeatureIcon name={f.ic} /></div>
                 <h3>{f.t}</h3>
                 <p>{f.d}</p>
               </div>
             ))}
           </div>
+          <p className="feat-note rv">Semua fitur inti bisa dipakai gratis — tanpa iklan, tanpa langganan.</p>
         </div>
       </section>
 
@@ -319,24 +329,6 @@ export default function App() {
         </div>
       </section>
 
-      <section id="testi" className="sec">
-        <div className="sec-head rv container">
-          <span className="tag">Testimoni</span>
-          <h2>Dicintai oleh <span className="grad">ribuan pengguna</span></h2>
-        </div>
-        <div className="marquee">
-          <div className="mq-track">
-            {[...testi, ...testi].map((t, i) => (
-              <div className="tcard" key={i}>
-                <div className="stars">★★★★★</div>
-                <p>"{t.q}"</p>
-                <div className="tuser"><span>{t.n[0]}</span><div><b>{t.n}</b><small>{t.r}</small></div></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section id="unduh" className="cta">
         <div className="container">
           <div className="cta-box rv">
@@ -345,6 +337,7 @@ export default function App() {
             <h2>Siap meninggalkan jejak baik hari ini?</h2>
             <p>Gabung bersama 10.000+ orang yang sudah membangun kebiasaan positif. Gratis, tanpa iklan.</p>
             <PlayButton light />
+            <p className="cta-note">Langsung unduh file APK — tanpa perlu akun toko aplikasi.</p>
           </div>
         </div>
       </section>
@@ -353,52 +346,39 @@ export default function App() {
         <div className="container foot-in">
           <div className="foot-brand">
             <a href="#" className="logo" aria-label="Jejak Baik">
-              <svg className="logo-mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-                <defs>
-                  <linearGradient id="gf1" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#10b981" />
-                    <stop offset="100%" stopColor="#059669" />
-                  </linearGradient>
-                  <linearGradient id="gf2" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#34d399" />
-                    <stop offset="100%" stopColor="#10b981" />
-                  </linearGradient>
-                </defs>
-                <path d="M100 10 C144.18 10 182 47.82 182 92 C182 136.18 144.18 174 100 174 C55.82 174 18 136.18 18 92 C18 47.82 55.82 10 100 10 Z" fill="url(#gf1)" stroke="#047857" strokeWidth="4" />
-                <path d="M100 174 C55.82 174 18 136.18 18 92 C18 47.82 55.82 10 100 10" fill="none" stroke="url(#gf2)" strokeWidth="12" strokeLinecap="round" />
-                <ellipse cx="108" cy="106" rx="14" ry="22" fill="#111827" />
-                <path d="M82 120 L94 110 L106 126 L122 102" stroke="#ffffff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                <path d="M90 118 L106 110 L122 128" stroke="#ffffff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                <path d="M76 134 Q88 146 106 134 T136 134" fill="none" stroke="#10b981" strokeWidth="10" strokeLinecap="round" />
-                <path d="M122 150 Q134 150 142 140 T150 122" fill="none" stroke="#34d399" strokeWidth="10" strokeLinecap="round" />
-              </svg>
+              <span className="nav-logo-icon">
+                <img src={logoImage} alt="Jejak Baik" />
+              </span>
               <span className="logo-text">Jejak<b>Baik</b></span>
             </a>
             <p className="foot-slogan">Sehat Hari Ini, Langkah Baik Esok</p>
+            <p className="foot-desc">Habit tracker berbahasa Indonesia untuk mencatat, memantau, dan merayakan setiap kebiasaan baikmu.</p>
+            <div className="foot-social">
+              <a href={IG_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><IgIcon size={19} /></a>
+              <a href={WA_URL} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><WaIcon size={19} /></a>
+              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" aria-label="TikTok"><TtIcon size={19} /></a>
+              <a href={`mailto:${EMAIL}`} aria-label="Email"><MailIcon size={19} /></a>
+            </div>
           </div>
+
           <div className="foot-links">
             <h6>Navigasi</h6>
             {nav.map(([t, h]) => <a key={h} href={h}>{t}</a>)}
+            <a href="#unduh">Download</a>
           </div>
-          <div className="foot-links">
-            <h6>Unduh</h6>
-            <a href={PLAY_URL} target="_blank" rel="noopener noreferrer">Google Play Store</a>
-          </div>
+
           <div className="foot-contact">
             <h6>Kontak</h6>
-            <a href={WA_URL} target="_blank" rel="noopener noreferrer"><span className="ci"><WaIcon /></span><span>WhatsApp<br /><small>+62 812-3456-7890</small></span></a>
+            <a href={WA_URL} target="_blank" rel="noopener noreferrer"><span className="ci"><WaIcon /></span><span>WhatsApp<br /><small>+62 857-9843-3405</small></span></a>
             <a href={IG_URL} target="_blank" rel="noopener noreferrer"><span className="ci"><IgIcon /></span><span>Instagram<br /><small>@jejakbaik.app</small></span></a>
             <a href={`mailto:${EMAIL}`}><span className="ci"><MailIcon /></span><span>Email<br /><small>{EMAIL}</small></span></a>
             <p className="foot-loc">Berdiri di Indonesia 🇮🇩</p>
           </div>
-          <div className="foot-bottom">
-            <p>© 2026 Jejak Baik. Hak cipta dilindungi undang-undang.</p>
-            <div className="foot-social">
-              <a href={IG_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><IgIcon size={20} /></a>
-              <a href={WA_URL} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><WaIcon size={20} /></a>
-              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" aria-label="TikTok"><TtIcon size={20} /></a>
-            </div>
-          </div>
+        </div>
+
+        <div className="container foot-bottom">
+          <p>© 2026 <b>Jejak Baik</b> — Sehat Hari Ini, Langkah Baik Esok.</p>
+          <p>Hak cipta dilindungi undang-undang.</p>
         </div>
       </footer>
     </>
